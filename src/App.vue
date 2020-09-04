@@ -1,28 +1,51 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+	<div>
+    <h3>Lista de Tareas de Agus</h3>
+		<input v-model="tarea" type="text" placeholder="Apunta tu Tarea"/>
+		<button @click="add">Añadir Tarea</button>
+		<Tarea v-for="(tarea, i) in tareas" :key="i" :tarea="tarea" :indice="i" @eliminar="eliminarTarea"></Tarea>
+	</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Tarea from './components/Tarea';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+	name: 'Tareas',
+	components: {
+		Tarea,
+	},
+	data() {
+		return {
+			tarea: '',
+			tareas: [],
+		};
+	},
+	methods: {
+		add() {
+			this.tareas.push(this.tarea);
+			this.tarea = ' ';
+		},
+		eliminarTarea(indice) {
+			this.tareas.splice(indice, 1);
+		},
+	},
+};
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style>
+body{
+  font-family: 'Lucida Sans';
+  font-size: 20px;
+  
 }
+ button{
+   background-color: coral;
+   color: white;
+   padding: 15px;
+   border-radius: 5px;
+ }
+ input{
+   padding: 15px;
+ }
 </style>
